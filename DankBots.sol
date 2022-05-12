@@ -1368,11 +1368,11 @@ contract DankBots is ERC721A, Ownable {
 		require( ! whitelistClaimed[ msg.sender ], "Address has already claimed whitelist!" );
 
 		if (msg.sender != owner()) {
-			whitelistClaimed[ msg.sender ] = true;
 			require(_mintAmount + _numberMinted( msg.sender ) <= maxMintAmount, "Exceeds max mint amount" );
 			bytes32 leaf = keccak256( abi.encodePacked( msg.sender ) );
 			require( MerkleProof.verify( _merkleProof, whitelistRoot, leaf ), "Invalid proof" );
 			require(msg.value >= whitelistCost * _mintAmount);
+			whitelistClaimed[ msg.sender ] = true;
 		}
 
 		_safeMint(msg.sender, _mintAmount);
@@ -1395,11 +1395,11 @@ contract DankBots is ERC721A, Ownable {
 		require( ! freeClaimed[ msg.sender ], "Address has already claimed freelist!" );
 
 		if (msg.sender != owner()) {
-			freeClaimed[ msg.sender ] = true;
 			require(_mintAmount + _numberMinted( msg.sender ) <= maxMintAmount, "Exceeds max free mint amount" );
 			bytes32 leaf = keccak256( abi.encodePacked( msg.sender ) );
 			require( MerkleProof.verify( _merkleProof, freeRoot, leaf ), "Invalid proof" );
 			require( msg.value >= whitelistCost * ( _mintAmount - maxFreeMintAmount ) );
+			freeClaimed[ msg.sender ] = true;
 		}
 
 		_safeMint(msg.sender, _mintAmount);
