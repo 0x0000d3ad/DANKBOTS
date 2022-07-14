@@ -1431,7 +1431,7 @@ contract DankBots is ERC721A, Ownable {
 		revealed = true;
 	}
 
-	function setmaxMintAmount(uint256 _newmaxMintAmount) 
+	function setMaxMintAmount(uint256 _newmaxMintAmount) 
 	public 
 	onlyOwner {
 		maxMintAmount = _newmaxMintAmount;
